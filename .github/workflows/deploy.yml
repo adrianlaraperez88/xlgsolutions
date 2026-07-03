@@ -8,12 +8,22 @@ on:
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
 
-# Grant write permissions so the workflow can push the build files to the gh-pages branch
+# Grant necessary permissions for GitHub Actions Pages deployment
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one active deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
   build-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
 
     steps:
@@ -32,8 +42,11 @@ jobs:
       - name: Build Angular app
         run: npx ng build --configuration production --base-href /xlgsolutions/
 
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          folder: dist/xlgsolutions/browser
-          branch: gh-pages
+          path: dist/xlgsolutions/browser
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
