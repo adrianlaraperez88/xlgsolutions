@@ -1,35 +1,39 @@
-name: Build and Deploy to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
     branches:
       - main
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+# Grant write permissions so the workflow can push the build files to the gh-pages branch
+permissions:
+  contents: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v6
 
-      - name: Setup Node.js 🟩
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: '22'
-          cache: 'npm'
+          node-version: 24
+          cache: "npm"
 
-      - name: Install Dependencies 👨🏻‍💻
-        run: npm install
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Install dependencies
+        run: npm ci
 
-      - name: Build 🏗️
-        run: npm run build -- --base-href /xlgsolutions/
+      - name: Build Angular app
+        run: npx ng build --configuration production --base-href /xlgsolutions/
 
-      - name: Deploy 🚀
+      - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          branch: gh-pages # The branch the action should deploy to.
-          folder: dist/xlgsolutions/browser # The folder the action should deploy.
+          folder: dist/xlgsolutions/browser
+          branch: gh-pages

@@ -2,7 +2,7 @@ name: Security Check
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   security-scan:
@@ -14,13 +14,11 @@ jobs:
       - name: Setup Node.js 🟩
         uses: actions/setup-node@v6
         with:
-          node-version: '22'
-          cache: 'npm'
+          node-version: "22"
+          cache: "npm"
 
       - name: Install Dependencies 👨🏻‍💻
         run: npm install
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Run NPM Audit 🛡️
         run: npm audit --audit-level=high
