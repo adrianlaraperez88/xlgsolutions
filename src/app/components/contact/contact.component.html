@@ -1,40 +1,88 @@
-<section id="contact" class="py-16 md:py-24 bg-gray-900 text-white">
-  <div class="container mx-auto px-6">
-    <div class="text-center">
-      <h2 class="text-3xl md:text-4xl font-bold">Get in Touch</h2>
-      <p class="mt-4 text-lg text-gray-300 max-w-3xl mx-auto">
-        Ready to take the next step? Contact us for a free, no-obligation consultation.
+<section id="contact" class="py-20 md:py-28 bg-slate-900 text-white relative overflow-hidden">
+  <!-- Glowing subtle orb inside dark background -->
+  <div class="absolute bottom-[-10%] left-[5%] w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+  <div class="container mx-auto px-6 relative z-10">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <span class="text-xs font-semibold text-blue-400 uppercase tracking-widest bg-blue-950/60 px-3.5 py-1.5 rounded-full border border-blue-800/30">Connect</span>
+      <h2 class="text-3xl md:text-5xl font-bold font-display mt-4 tracking-tight">Let's Build Together</h2>
+      <p class="mt-4 text-base md:text-lg text-slate-400 leading-relaxed">
+        Ready to optimize your financial processes or select a health plan? Contact us for a free, zero-obligation advisory session.
       </p>
     </div>
-    <div class="mt-12 max-w-lg mx-auto">
+
+    <div class="max-w-xl mx-auto">
       <!-- Submission Status Messages -->
-      <div *ngIf="submissionState === 'success'" class="my-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded-md" role="alert">
-        <strong>Thank you!</strong> Your message has been sent successfully.
+      <div *ngIf="submissionState === 'success'" class="my-6 p-5 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-2xl flex items-start gap-3 animate-fade-in" role="alert">
+        <span class="text-lg">✓</span>
+        <div>
+          <strong class="font-bold">Thank you!</strong>
+          <p class="text-sm mt-0.5">Your inquiry was received. An advisor will follow up within 24 hours.</p>
+        </div>
       </div>
-      <div *ngIf="submissionState === 'error'" class="my-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-md" role="alert">
-        <strong>Error!</strong> There was a problem sending your message. Please try again later.
+      <div *ngIf="submissionState === 'error'" class="my-6 p-5 bg-rose-500/10 border border-rose-500/30 text-rose-400 rounded-2xl flex items-start gap-3 animate-fade-in" role="alert">
+        <span class="text-lg">⚠️</span>
+        <div>
+          <strong class="font-bold">Error!</strong>
+          <p class="text-sm mt-0.5">There was a problem sending your message. Please try again later.</p>
+        </div>
       </div>
 
-      <form *ngIf="submissionState !== 'success'" [formGroup]="contactForm" (ngSubmit)="submitForm()" class="grid grid-cols-1 gap-y-6">
+      <form *ngIf="submissionState !== 'success'" [formGroup]="contactForm" (ngSubmit)="submitForm()" class="bg-slate-800/50 backdrop-blur-md p-8 md:p-10 rounded-3xl border border-slate-800 shadow-2xl space-y-6">
+        <!-- Full Name Field -->
         <div>
-          <label for="full-name" class="sr-only">Full name</label>
-          <input type="text" formControlName="fullName" id="full-name" autocomplete="name" class="block w-full shadow-sm py-3 px-4 placeholder-gray-500 text-gray-900 focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md" placeholder="Full name">
+          <label for="full-name" class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Full Name</label>
+          <input type="text" formControlName="fullName" id="full-name" autocomplete="name"
+                 [class.border-rose-500]="contactForm.get('fullName')?.invalid && contactForm.get('fullName')?.touched"
+                 [class.focus:ring-rose-500]="contactForm.get('fullName')?.invalid && contactForm.get('fullName')?.touched"
+                 class="block w-full py-3.5 px-4 bg-slate-900/60 border border-slate-700/50 rounded-xl placeholder-slate-500 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-all text-sm shadow-sm" placeholder="e.g. Jane Doe">
+          <div *ngIf="contactForm.get('fullName')?.invalid && contactForm.get('fullName')?.touched" class="text-rose-400 text-xs mt-1.5 pl-1 flex items-center gap-1">
+            <span>●</span> Full name is required.
+          </div>
         </div>
+
+        <!-- Email Field -->
         <div>
-          <label for="email" class="sr-only">Email</label>
-          <input id="email" formControlName="email" type="email" autocomplete="email" class="block w-full shadow-sm py-3 px-4 placeholder-gray-500 text-gray-900 focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md" placeholder="Email">
+          <label for="email" class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Email Address</label>
+          <input id="email" formControlName="email" type="email" autocomplete="email"
+                 [class.border-rose-500]="contactForm.get('email')?.invalid && contactForm.get('email')?.touched"
+                 [class.focus:ring-rose-500]="contactForm.get('email')?.invalid && contactForm.get('email')?.touched"
+                 class="block w-full py-3.5 px-4 bg-slate-900/60 border border-slate-700/50 rounded-xl placeholder-slate-500 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-all text-sm shadow-sm" placeholder="jane@example.com">
+          <div *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched" class="text-rose-400 text-xs mt-1.5 pl-1 flex items-center gap-1">
+            <span>●</span> Please enter a valid email address.
+          </div>
         </div>
+
+        <!-- Phone Field -->
         <div>
-          <label for="phone" class="sr-only">Phone</label>
-          <input type="text" formControlName="phone" id="phone" autocomplete="tel" class="block w-full shadow-sm py-3 px-4 placeholder-gray-500 text-gray-900 focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md" placeholder="Phone (Optional)">
+          <label for="phone" class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Phone Number <span class="text-slate-600 font-normal">(Optional)</span></label>
+          <input type="text" formControlName="phone" id="phone" autocomplete="tel"
+                 class="block w-full py-3.5 px-4 bg-slate-900/60 border border-slate-700/50 rounded-xl placeholder-slate-500 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-all text-sm shadow-sm" placeholder="(305) 555-0199">
         </div>
+
+        <!-- Message Field -->
         <div>
-          <label for="message" class="sr-only">Message</label>
-          <textarea id="message" formControlName="message" rows="4" class="block w-full shadow-sm py-3 px-4 placeholder-gray-500 text-gray-900 focus:ring-blue-500 focus:border-blue-500 border border-gray-300 rounded-md" placeholder="Message"></textarea>
+          <label for="message" class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Your Inquiry</label>
+          <textarea id="message" formControlName="message" rows="4"
+                    [class.border-rose-500]="contactForm.get('message')?.invalid && contactForm.get('message')?.touched"
+                    [class.focus:ring-rose-500]="contactForm.get('message')?.invalid && contactForm.get('message')?.touched"
+                    class="block w-full py-3.5 px-4 bg-slate-900/60 border border-slate-700/50 rounded-xl placeholder-slate-500 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-all text-sm shadow-sm resize-none" placeholder="Briefly describe what services you need assistance with..."></textarea>
+          <div *ngIf="contactForm.get('message')?.invalid && contactForm.get('message')?.touched" class="text-rose-400 text-xs mt-1.5 pl-1 flex items-center gap-1">
+            <span>●</span> Inquiry message cannot be empty.
+          </div>
         </div>
+
+        <!-- Submit Button -->
         <div>
-          <button type="submit" [disabled]="submissionState === 'submitting'" class="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed">
-            <span *ngIf="submissionState === 'submitting'">Sending...</span>
+          <button type="submit" [disabled]="submissionState === 'submitting'"
+                  class="w-full inline-flex items-center justify-center px-6 py-4 rounded-xl shadow-lg text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transform hover:-translate-y-0.5 transition-all">
+            <span *ngIf="submissionState === 'submitting'" class="flex items-center gap-2">
+              <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              Sending Inquiry...
+            </span>
             <span *ngIf="submissionState !== 'submitting'">Send Message</span>
           </button>
         </div>
@@ -43,8 +91,17 @@
   </div>
 </section>
 
-<footer class="bg-gray-800">
-    <div class="container mx-auto py-8 px-6 text-center text-gray-400">
-        <p>&copy; 2026 XLG Solutions. All rights reserved.</p>
+<footer class="bg-slate-950 border-t border-slate-900 py-12">
+  <div class="container mx-auto px-6">
+    <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+      <img src="assets/logo.svg" alt="XLG Solutions Logo" class="h-8 w-auto opacity-70 hover:opacity-100 transition-opacity">
+      <div class="flex gap-8 text-sm text-slate-500 font-medium">
+        <a routerLink="/" class="hover:text-blue-500 transition-colors">Home</a>
+        <a href="#services" class="hover:text-blue-500 transition-colors">Services</a>
+        <a href="#testimonials" class="hover:text-blue-500 transition-colors">Testimonials</a>
+      </div>
+      <p class="text-xs text-slate-600 font-medium">&copy; 2026 XLG Solutions. All rights reserved.</p>
     </div>
+  </div>
 </footer>
+

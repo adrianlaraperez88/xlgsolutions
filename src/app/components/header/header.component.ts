@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, HostListener, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ServiceService } from '../../services/service.service';
@@ -12,6 +12,7 @@ import { Service } from '../../models/service.model';
 })
 export class HeaderComponent {
   private serviceService = inject(ServiceService);
+  private elementRef = inject(ElementRef);
   
   menuOpen = signal(false);
   servicesMenuOpen = signal(false);
@@ -32,5 +33,12 @@ export class HeaderComponent {
   closeMenus() {
     this.menuOpen.set(false);
     this.servicesMenuOpen.set(false);
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    if (!this.elementRef.nativeElement.contains(event.target)) {
+      this.closeMenus();
+    }
   }
 }

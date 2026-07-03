@@ -1,15 +1,14 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable, of, delay } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContactService {
-  private http = inject(HttpClient);
-  private apiUrl = '/api/contact'; // Placeholder for the backend endpoint
-
   sendContactForm(formData: any): Observable<any> {
-    return this.http.post(this.apiUrl, formData);
+    // Simulating a backend HTTP POST network request for this frontend-only workspace.
+    // In production, this would make an actual call to the backend API endpoint.
+    console.log('Mock API: Submitting contact request:', formData);
+    return of({ success: true }).pipe(delay(1200));
   }
 }

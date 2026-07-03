@@ -17,9 +17,11 @@ export class ServiceDetailComponent implements OnInit {
   service: Service | undefined;
 
   ngOnInit(): void {
-    const serviceId = this.route.snapshot.paramMap.get('id');
-    if (serviceId) {
-      this.service = this.serviceService.getServiceById(serviceId);
-    }
+    this.route.paramMap.subscribe(params => {
+      const serviceId = params.get('id');
+      if (serviceId) {
+        this.service = this.serviceService.getServiceById(serviceId);
+      }
+    });
   }
 }
