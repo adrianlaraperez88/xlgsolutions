@@ -6,9 +6,18 @@ import { Observable, of, delay } from 'rxjs';
 })
 export class ContactService {
   sendContactForm(formData: any): Observable<any> {
-    // Simulating a backend HTTP POST network request for this frontend-only workspace.
-    // In production, this would make an actual call to the backend API endpoint.
-    console.log('Mock API: Submitting contact request:', formData);
-    return of({ success: true }).pipe(delay(1200));
+    const subject = encodeURIComponent('New Client Inquiry - XLG Solutions');
+    const body = encodeURIComponent(
+      `Name: ${formData.fullName}\n` +
+      `Email: ${formData.email}\n` +
+      `Phone: ${formData.phone || 'N/A'}\n\n` +
+      `Message:\n${formData.message}`
+    );
+    
+    // Open default mail client pre-filled with form details
+    window.location.href = `mailto:info@xlgsolutions.com?subject=${subject}&body=${body}`;
+
+    // Return success state immediately after a brief delay to allow loading feedback
+    return of({ success: true }).pipe(delay(1000));
   }
 }
