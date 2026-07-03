@@ -1,0 +1,19 @@
+<app-hero></app-hero>
+
+@defer (on viewport) {
+  <app-about></app-about>
+} @placeholder {
+  <div class="h-96 bg-gray-50"></div>
+}
+
+@defer (on viewport) {
+  <app-services></app-services>
+} @placeholder {
+  <div class="h-96 bg-white"></div>
+}
+
+@defer (on viewport) {
+  <app-testimonials></app-testimonials>
+} @placeholder {
+  <div class="h-96 bg-gray-50"></div>
+}

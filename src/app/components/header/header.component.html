@@ -1,0 +1,42 @@
+<header class="bg-white/80 backdrop-blur-md fixed top-0 left-0 right-0 z-50">
+  <nav class="container mx-auto px-6 py-4">
+    <div class="flex items-center justify-between">
+      <a routerLink="/" class="flex items-center" (click)="closeMenus()">
+        <img src="assets/logo.svg" alt="XLG Solutions Logo" class="h-10 w-auto">
+      </a>
+      <div class="hidden md:flex items-center space-x-8">
+        <a routerLink="/" class="text-gray-600 hover:text-blue-600">Home</a>
+        <div class="relative">
+          <button (click)="toggleServicesMenu()" (blur)="servicesMenuOpen.set(false)" class="text-gray-600 hover:text-blue-600 flex items-center">
+            Services
+            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          @if(servicesMenuOpen()) {
+            <div class="absolute mt-2 w-56 bg-white rounded-md shadow-lg z-10 py-1">
+              @for(service of services; track service.id) {
+                <a [routerLink]="['/service', service.id]" (click)="closeMenus()" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">{{ service.name }}</a>
+              }
+            </div>
+          }
+        </div>
+        <a routerLink="/" fragment="testimonials" class="text-gray-600 hover:text-blue-600">Testimonials</a>
+        <a routerLink="/" fragment="contact" class="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700">Contact</a>
+      </div>
+      <div class="md:hidden">
+        <button (click)="toggleMenu()" class="text-gray-600 focus:outline-none">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+      </div>
+    </div>
+    @if (menuOpen()) {
+      <div class="md:hidden mt-4">
+        <a routerLink="/" (click)="closeMenus()" class="block py-2 text-gray-600 hover:text-blue-600">Home</a>
+        @for(service of services; track service.id) {
+          <a [routerLink]="['/service', service.id]" (click)="closeMenus()" class="block py-2 text-gray-600 hover:bg-gray-100">{{ service.name }}</a>
+        }
+        <a routerLink="/" fragment="testimonials" (click)="closeMenus()" class="block py-2 text-gray-600 hover:text-blue-600">Testimonials</a>
+        <a routerLink="/" fragment="contact" (click)="closeMenus()" class="block mt-2 px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700">Contact</a>
+      </div>
+    }
+  </nav>
+</header>

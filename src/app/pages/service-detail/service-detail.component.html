@@ -1,0 +1,25 @@
+<section class="py-24 md:py-32 bg-gray-50">
+  <div class="container mx-auto px-6">
+    @if (service) {
+      <div class="max-w-3xl mx-auto">
+        <h1 class="text-3xl md:text-5xl font-bold text-gray-900">{{ service.name }}</h1>
+        <p class="mt-2 text-lg text-gray-600">{{ service.nameEs }}</p>
+        <div class="mt-8 prose lg:prose-xl max-w-none text-gray-800">
+          <p>{{ service.longDescription }}</p>
+        </div>
+        <div class="mt-12">
+            <a routerLink="/" class="text-blue-600 hover:text-blue-800 font-semibold">
+                &larr; Back to Home
+            </a>
+        </div>
+      </div>
+    } @else {
+      <div class="text-center">
+        <h2 class="text-2xl font-bold">Service not found</h2>
+        <p class="mt-4">
+            <a routerLink="/" class="text-blue-600 hover:text-blue-800">Return to Home</a>
+        </p>
+      </div>
+    }
+  </div>
+</section>

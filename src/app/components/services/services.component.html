@@ -1,0 +1,20 @@
+<section id="services" class="py-16 md:py-24 bg-gray-50">
+  <div class="container mx-auto px-6">
+    <div class="text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Comprehensive Services</h2>
+      <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
+        We offer a wide range of financial services to meet your business and personal needs. Click to learn more.
+      </p>
+    </div>
+    <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      @for (service of services; track service.id) {
+        <a [routerLink]="['/service', service.id]" class="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 block">
+          <h3 class="text-xl font-semibold text-gray-900">{{ service.name }}</h3>
+          <p class="mt-2 text-gray-600">{{ service.shortDescription }}</p>
+          <p class="mt-1 text-gray-500 text-sm">{{ service.nameEs }}</p>
+          <span class="mt-4 inline-block text-blue-600 font-semibold">Learn More &rarr;</span>
+        </a>
+      }
+    </div>
+  </div>
+</section>

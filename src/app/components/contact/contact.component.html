@@ -1,0 +1,50 @@
+<section id="contact" class="py-16 md:py-24 bg-gray-900 text-white">
+  <div class="container mx-auto px-6">
+    <div class="text-center">
+      <h2 class="text-3xl md:text-4xl font-bold">Get in Touch</h2>
+      <p class="mt-4 text-lg text-gray-300 max-w-3xl mx-auto">
+        Ready to take the next step? Contact us for a free, no-obligation consultation.
+      </p>
+    </div>
+    <div class="mt-12 max-w-lg mx-auto">
+      <!-- Submission Status Messages -->
+      <div *ngIf="submissionState === 'success'" class="my-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded-md" role="alert">
+        <strong>Thank you!</strong> Your message has been sent successfully.
+      </div>
+      <div *ngIf="submissionState === 'error'" class="my-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-md" role="alert">
+        <strong>Error!</strong> There was a problem sending your message. Please try again later.
+      </div>
+
+      <form *ngIf="submissionState !== 'success'" [formGroup]="contactForm" (ngSubmit)="submitForm()" class="grid grid-cols-1 gap-y-6">
+        <div>
+          <label for="full-name" class="sr-only">Full name</label>
+          <input type="text" formControlName="fullName" id="full-name" autocomplete="name" class="block w-full shadow-sm py-3 px-4 placeholder-gray-500 text-gray-900 focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md" placeholder="Full name">
+        </div>
+        <div>
+          <label for="email" class="sr-only">Email</label>
+          <input id="email" formControlName="email" type="email" autocomplete="email" class="block w-full shadow-sm py-3 px-4 placeholder-gray-500 text-gray-900 focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md" placeholder="Email">
+        </div>
+        <div>
+          <label for="phone" class="sr-only">Phone</label>
+          <input type="text" formControlName="phone" id="phone" autocomplete="tel" class="block w-full shadow-sm py-3 px-4 placeholder-gray-500 text-gray-900 focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md" placeholder="Phone (Optional)">
+        </div>
+        <div>
+          <label for="message" class="sr-only">Message</label>
+          <textarea id="message" formControlName="message" rows="4" class="block w-full shadow-sm py-3 px-4 placeholder-gray-500 text-gray-900 focus:ring-blue-500 focus:border-blue-500 border border-gray-300 rounded-md" placeholder="Message"></textarea>
+        </div>
+        <div>
+          <button type="submit" [disabled]="submissionState === 'submitting'" class="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed">
+            <span *ngIf="submissionState === 'submitting'">Sending...</span>
+            <span *ngIf="submissionState !== 'submitting'">Send Message</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="bg-gray-800">
+    <div class="container mx-auto py-8 px-6 text-center text-gray-400">
+        <p>&copy; 2026 XLG Solutions. All rights reserved.</p>
+    </div>
+</footer>
