@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ServiceService } from '../../services/service.service';
 import { Service } from '../../models/service.model';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-header',
@@ -12,6 +13,7 @@ import { Service } from '../../models/service.model';
 })
 export class HeaderComponent {
   private serviceService = inject(ServiceService);
+  public langService = inject(LanguageService);
   private elementRef = inject(ElementRef);
   
   menuOpen = signal(false);

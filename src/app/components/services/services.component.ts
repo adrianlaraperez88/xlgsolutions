@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { ServiceService } from '../../services/service.service';
 import { Service } from '../../models/service.model';
 import { CommonModule } from '@angular/common';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-services',
@@ -12,6 +13,7 @@ import { CommonModule } from '@angular/common';
 })
 export class ServicesComponent {
   private serviceService = inject(ServiceService);
+  public langService = inject(LanguageService);
   services: Service[] = [];
 
   ngOnInit() {

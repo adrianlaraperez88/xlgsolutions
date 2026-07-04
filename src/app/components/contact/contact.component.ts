@@ -1,18 +1,21 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { ContactService } from '../../services/contact.service';
+import { LanguageService } from '../../services/language.service';
 import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './contact.component.html',
 })
 export class ContactComponent {
   private fb = inject(FormBuilder);
   private contactService = inject(ContactService);
+  public langService = inject(LanguageService);
 
   submissionState: 'idle' | 'submitting' | 'success' | 'error' = 'idle';
 

@@ -12,51 +12,40 @@
             <svg class="w-4 h-4 mr-2 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
             </svg>
-            Back to Home
+            {{ langService.translate('backToHome') }}
           </a>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
           <!-- Main Content (2 Columns wide on desktop) -->
           <div class="lg:col-span-2 bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-slate-100/60">
-            <span class="text-xs font-semibold text-blue-600 uppercase tracking-widest bg-blue-50 px-3.5 py-1.5 rounded-full border border-blue-100/50">Service Overview</span>
-            <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 font-display mt-6 tracking-tight">{{ service.name }}</h1>
-            <p class="mt-2.5 text-lg font-medium text-slate-400 italic">{{ service.nameEs }}</p>
+            <span class="text-xs font-semibold text-blue-600 uppercase tracking-widest bg-blue-50 px-3.5 py-1.5 rounded-full border border-blue-100/50">{{ langService.translate('serviceOverview') }}</span>
+            <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 font-display mt-6 tracking-tight">
+              {{ langService.activeLang() === 'es' ? service.nameEs : service.name }}
+            </h1>
+            <p class="mt-2.5 text-lg font-medium text-slate-400 italic">
+              {{ langService.activeLang() === 'es' ? service.name : service.nameEs }}
+            </p>
             
             <div class="mt-8 text-slate-600 text-base md:text-lg leading-relaxed space-y-6">
-              <p>{{ service.longDescription }}</p>
-              <p>We work closely with you to customize our solutions to match your specific timeline and objectives, ensuring you have reliable advisors in your corner at every phase of your journey.</p>
+              <p>{{ langService.activeLang() === 'es' ? service.longDescriptionEs : service.longDescription }}</p>
+              <p>
+                {{ langService.activeLang() === 'es' ? 'Trabajamos en estrecha colaboración con usted para adaptar nuestras soluciones a sus tiempos y objetivos específicos, garantizando que cuente con asesores confiables a su lado en cada fase de su camino.' : 'We work closely with you to customize our solutions to match your specific timeline and objectives, ensuring you have reliable advisors in your corner at every phase of your journey.' }}
+              </p>
             </div>
 
-            <!-- Features Highlights Checklist based on Service ID -->
+            <!-- Features Highlights Checklist dynamically mapped -->
             <div class="mt-12">
-              <h3 class="text-xl font-bold text-slate-900 font-display mb-6">Key Focus Areas</h3>
+              <h3 class="text-xl font-bold text-slate-900 font-display mb-6">{{ langService.translate('keyFocusAreasTitle') }}</h3>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                @if (service.id === 'tax-preparation-planning') {
-                  <div class="flex items-start gap-3"><span class="w-5 h-5 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0 mt-0.5">&checkmark;</span><div><p class="font-semibold text-slate-900">Personal & Business Tax Filing</p><p class="text-xs text-slate-500">Accurate compliance for all entities.</p></div></div>
-                  <div class="flex items-start gap-3"><span class="w-5 h-5 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0 mt-0.5">&checkmark;</span><div><p class="font-semibold text-slate-900">Strategic Year-Round Planning</p><p class="text-xs text-slate-500">Minimize liabilities, maximize deductions.</p></div></div>
-                  <div class="flex items-start gap-3"><span class="w-5 h-5 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0 mt-0.5">&checkmark;</span><div><p class="font-semibold text-slate-900">IRS Audit Support & Consulting</p><p class="text-xs text-slate-500">Professional guidance during disputes.</p></div></div>
-                  <div class="flex items-start gap-3"><span class="w-5 h-5 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0 mt-0.5">&checkmark;</span><div><p class="font-semibold text-slate-900">State & Federal Compliance</p><p class="text-xs text-slate-500">Always updated on latest regulations.</p></div></div>
-                } @else if (service.id === 'bookkeeping') {
-                  <div class="flex items-start gap-3"><span class="w-5 h-5 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center flex-shrink-0 mt-0.5">&checkmark;</span><div><p class="font-semibold text-slate-900">Transaction Classification</p><p class="text-xs text-slate-500">Clean tracking of expenses & revenue.</p></div></div>
-                  <div class="flex items-start gap-3"><span class="w-5 h-5 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center flex-shrink-0 mt-0.5">&checkmark;</span><div><p class="font-semibold text-slate-900">Accounts Payable/Receivable</p><p class="text-xs text-slate-500">Optimize cash flows and invoicing.</p></div></div>
-                  <div class="flex items-start gap-3"><span class="w-5 h-5 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center flex-shrink-0 mt-0.5">&checkmark;</span><div><p class="font-semibold text-slate-900">Monthly Financial Reports</p><p class="text-xs text-slate-500">Clear Balance Sheets & P&L statements.</p></div></div>
-                  <div class="flex items-start gap-3"><span class="w-5 h-5 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center flex-shrink-0 mt-0.5">&checkmark;</span><div><p class="font-semibold text-slate-900">Bank Reconciliation</p><p class="text-xs text-slate-500">No discrepancies between bank & books.</p></div></div>
-                } @else if (service.id === 'health-insurance') {
-                  <div class="flex items-start gap-3"><span class="w-5 h-5 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center flex-shrink-0 mt-0.5">&checkmark;</span><div><p class="font-semibold text-slate-900">ACA Marketplace (Obamacare)</p><p class="text-xs text-slate-500">Calculate premium tax credits & apply.</p></div></div>
-                  <div class="flex items-start gap-3"><span class="w-5 h-5 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center flex-shrink-0 mt-0.5">&checkmark;</span><div><p class="font-semibold text-slate-900">Family & Individual Plans</p><p class="text-xs text-slate-500">Comprehensive custom-fit health models.</p></div></div>
-                  <div class="flex items-start gap-3"><span class="w-5 h-5 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center flex-shrink-0 mt-0.5">&checkmark;</span><div><p class="font-semibold text-slate-900">Prescription Savings Plans</p><p class="text-xs text-slate-500">Lower out-of-pocket pharmaceutical costs.</p></div></div>
-                  <div class="flex items-start gap-3"><span class="w-5 h-5 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center flex-shrink-0 mt-0.5">&checkmark;</span><div><p class="font-semibold text-slate-900">Provider Network Match</p><p class="text-xs text-slate-500">Keep your trusted doctor on plan.</p></div></div>
-                } @else if (service.id === 'supplemental-benefits') {
-                  <div class="flex items-start gap-3"><span class="w-5 h-5 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center flex-shrink-0 mt-0.5">&checkmark;</span><div><p class="font-semibold text-slate-900">Accident Insurance</p><p class="text-xs text-slate-500">Cash pay-outs to cover unexpected injuries.</p></div></div>
-                  <div class="flex items-start gap-3"><span class="w-5 h-5 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center flex-shrink-0 mt-0.5">&checkmark;</span><div><p class="font-semibold text-slate-900">Hospital Indemnity</p><p class="text-xs text-slate-500">Direct monetary support during hospital stays.</p></div></div>
-                  <div class="flex items-start gap-3"><span class="w-5 h-5 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center flex-shrink-0 mt-0.5">&checkmark;</span><div><p class="font-semibold text-slate-900">Critical Illness Protection</p><p class="text-xs text-slate-500">Financial safety net for life-altering diagnoses.</p></div></div>
-                  <div class="flex items-start gap-3"><span class="w-5 h-5 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center flex-shrink-0 mt-0.5">&checkmark;</span><div><p class="font-semibold text-slate-900">Income Protection Shield</p><p class="text-xs text-slate-500">Supplement gaps left by primary plans.</p></div></div>
-                } @else if (service.id === 'business-support') {
-                  <div class="flex items-start gap-3"><span class="w-5 h-5 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center flex-shrink-0 mt-0.5">&checkmark;</span><div><p class="font-semibold text-slate-900">LLC & Corp Entity Formation</p><p class="text-xs text-slate-500">Set up corporate structure correctly.</p></div></div>
-                  <div class="flex items-start gap-3"><span class="w-5 h-5 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center flex-shrink-0 mt-0.5">&checkmark;</span><div><p class="font-semibold text-slate-900">Payroll Integration</p><p class="text-xs text-slate-500">Automate payroll runs and tax filings.</p></div></div>
-                  <div class="flex items-start gap-3"><span class="w-5 h-5 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center flex-shrink-0 mt-0.5">&checkmark;</span><div><p class="font-semibold text-slate-900">Licensing & Regulatory Filings</p><p class="text-xs text-slate-500">Keep operating permits fully compliant.</p></div></div>
-                  <div class="flex items-start gap-3"><span class="w-5 h-5 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center flex-shrink-0 mt-0.5">&checkmark;</span><div><p class="font-semibold text-slate-900">Strategic Cash Flow Advisory</p><p class="text-xs text-slate-500">Forecasting for growth decisions.</p></div></div>
+                @for (area of service.keyFocusAreas; track area.title) {
+                  <div class="flex items-start gap-3">
+                    <span class="w-5 h-5 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0 mt-0.5">&checkmark;</span>
+                    <div>
+                      <p class="font-semibold text-slate-900">{{ langService.activeLang() === 'es' ? area.titleEs : area.title }}</p>
+                      <p class="text-xs text-slate-500">{{ langService.activeLang() === 'es' ? area.descEs : area.desc }}</p>
+                    </div>
+                  </div>
                 }
               </div>
             </div>
@@ -64,15 +53,17 @@
 
           <!-- Sidebar Call to Action Card -->
           <div class="bg-gradient-to-br from-slate-900 to-indigo-950 rounded-3xl p-8 text-white shadow-xl lg:sticky lg:top-28">
-            <h3 class="text-xl font-bold font-display mb-4">Request Consultation</h3>
+            <h3 class="text-xl font-bold font-display mb-4">{{ langService.translate('requestConsultationTitle') }}</h3>
             <p class="text-slate-300 text-sm leading-relaxed mb-6">
-              Have questions about <span class="text-white font-semibold">{{ service.name }}</span>? Reach out to our specialist advisors for a free, customized review.
+              {{ langService.activeLang() === 'es' ? '¿Tiene preguntas sobre ' : 'Have questions about ' }}
+              <span class="text-white font-semibold">{{ langService.activeLang() === 'es' ? service.nameEs : service.name }}</span>
+              {{ langService.activeLang() === 'es' ? '? Póngase en contacto con nuestros asesores especializados para una revisión gratuita y personalizada.' : '? Reach out to our specialist advisors for a free, customized review.' }}
             </p>
             
             <div class="space-y-4 mb-8">
               <div class="flex items-center gap-3">
                 <span class="text-blue-400 text-lg">📞</span>
-                <span class="text-sm font-medium text-slate-200">Call Support: (305) 555-0199</span>
+                <span class="text-sm font-medium text-slate-200">{{ langService.translate('callSupportLabel') }}: (305) 555-0199</span>
               </div>
               <div class="flex items-center gap-3">
                 <span class="text-blue-400 text-lg">✉️</span>
@@ -80,8 +71,8 @@
               </div>
             </div>
             
-            <a href="#contact" class="block w-full py-3.5 text-center text-slate-900 bg-white hover:bg-slate-100 rounded-xl font-semibold shadow transition-all duration-200 text-sm">
-              Schedule Free Session
+            <a routerLink="/" fragment="contact" class="block w-full py-3.5 text-center text-slate-900 bg-white hover:bg-slate-100 rounded-xl font-semibold shadow transition-all duration-200 text-sm">
+              {{ langService.translate('scheduleSessionBtn') }}
             </a>
           </div>
         </div>
@@ -90,10 +81,10 @@
       <!-- Not Found Fallback -->
       <div class="max-w-md mx-auto text-center py-20 bg-white border border-slate-100 shadow-xl rounded-3xl p-8">
         <div class="text-5xl mb-6">🔍</div>
-        <h2 class="text-2xl font-bold text-slate-900 font-display">Service Not Found</h2>
-        <p class="mt-2 text-slate-500 text-sm">The service identifier requested could not be resolved in our database.</p>
+        <h2 class="text-2xl font-bold text-slate-900 font-display">{{ langService.translate('serviceNotFoundTitle') }}</h2>
+        <p class="mt-2 text-slate-500 text-sm">{{ langService.translate('serviceNotFoundDesc') }}</p>
         <a routerLink="/" class="mt-6 inline-block px-6 py-2.5 text-white bg-blue-600 hover:bg-blue-700 rounded-xl font-semibold text-sm shadow transition-all">
-          Return to Home
+          {{ langService.translate('returnToHomeBtn') }}
         </a>
       </div>
     }

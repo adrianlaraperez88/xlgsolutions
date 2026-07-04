@@ -3,6 +3,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Service } from '../../models/service.model';
 import { ServiceService } from '../../services/service.service';
 import { CommonModule } from '@angular/common';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-service-detail',
@@ -13,6 +14,7 @@ import { CommonModule } from '@angular/common';
 export class ServiceDetailComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private serviceService = inject(ServiceService);
+  public langService = inject(LanguageService);
 
   service: Service | undefined;
 

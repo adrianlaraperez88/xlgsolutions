@@ -3,10 +3,14 @@
 
   <div class="container mx-auto px-6 relative z-10">
     <div class="text-center max-w-3xl mx-auto">
-      <span class="text-xs font-semibold text-blue-600 uppercase tracking-widest bg-blue-50 px-3.5 py-1.5 rounded-full border border-blue-100/50">Our Expertise</span>
-      <h2 class="text-3xl md:text-5xl font-bold text-slate-900 font-display mt-4 tracking-tight">Comprehensive Solutions</h2>
+      <span class="text-xs font-semibold text-blue-600 uppercase tracking-widest bg-blue-50 px-3.5 py-1.5 rounded-full border border-blue-100/50">
+        {{ langService.activeLang() === 'es' ? 'Nuestra Experiencia' : 'Our Expertise' }}
+      </span>
+      <h2 class="text-3xl md:text-5xl font-bold text-slate-900 font-display mt-4 tracking-tight">
+        {{ langService.activeLang() === 'es' ? 'Soluciones Integrales' : 'Comprehensive Solutions' }}
+      </h2>
       <p class="mt-4 text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
-        Tailored services designed to streamline your business bookkeeping, manage your taxes, and secure your health insurance benefits.
+        {{ langService.activeLang() === 'es' ? 'Servicios a la medida diseñados para optimizar la contabilidad de su negocio, administrar sus impuestos y asegurar sus beneficios de seguro médico.' : 'Tailored services designed to streamline your business bookkeeping, manage your taxes, and secure your health insurance benefits.' }}
       </p>
     </div>
     
@@ -43,12 +47,15 @@
             }
           </div>
           
-          <h3 class="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors font-display">{{ service.name }}</h3>
-          <p class="mt-2.5 text-slate-500 text-sm leading-relaxed">{{ service.shortDescription }}</p>
-          <p class="mt-1 text-slate-400 text-xs italic font-medium">{{ service.nameEs }}</p>
+          <h3 class="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors font-display">
+            {{ langService.activeLang() === 'es' ? service.nameEs : service.name }}
+          </h3>
+          <p class="mt-2.5 text-slate-500 text-sm leading-relaxed">
+            {{ langService.activeLang() === 'es' ? service.shortDescriptionEs : service.shortDescription }}
+          </p>
           
           <div class="mt-6 flex items-center text-blue-600 font-semibold text-sm group-hover:translate-x-1.5 transition-transform duration-300">
-            Learn More
+            {{ langService.activeLang() === 'es' ? 'Saber Más' : 'Learn More' }}
             <svg class="w-4 h-4 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
             </svg>

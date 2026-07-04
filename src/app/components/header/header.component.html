@@ -7,11 +7,11 @@
       
       <!-- Desktop Navigation -->
       <div class="hidden md:flex items-center space-x-8 font-medium">
-        <a routerLink="/" class="text-slate-600 hover:text-blue-600 transition-colors py-2">Home</a>
+        <a routerLink="/" class="text-slate-600 hover:text-blue-600 transition-colors py-2">{{ langService.translate('home') }}</a>
         
         <div class="relative">
           <button (click)="toggleServicesMenu()" class="text-slate-600 hover:text-blue-600 transition-colors flex items-center py-2 focus:outline-none">
-            Services
+            {{ langService.translate('services') }}
             <svg class="w-4 h-4 ml-1 transform transition-transform duration-200" [class.rotate-180]="servicesMenuOpen()" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
             </svg>
@@ -21,21 +21,31 @@
             <div class="absolute right-0 md:left-0 mt-2 w-64 bg-white/95 backdrop-blur-md rounded-xl shadow-xl border border-slate-100 z-50 py-2 transition-all duration-200 ease-out origin-top-left animate-in fade-in slide-in-from-top-2">
               @for(service of services; track service.id) {
                 <a [routerLink]="['/service', service.id]" (click)="closeMenus()" class="block px-4 py-2.5 text-sm text-slate-700 hover:text-blue-600 hover:bg-slate-50 transition-all font-medium">
-                  {{ service.name }}
+                  {{ langService.activeLang() === 'es' ? service.nameEs : service.name }}
                 </a>
               }
             </div>
           }
         </div>
         
-        <a routerLink="/" fragment="testimonials" class="text-slate-600 hover:text-blue-600 transition-colors py-2">Testimonials</a>
+        <a routerLink="/" fragment="testimonials" class="text-slate-600 hover:text-blue-600 transition-colors py-2">{{ langService.translate('testimonials') }}</a>
+        
+        <!-- Language selector button -->
+        <button (click)="langService.toggleLanguage()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50 hover:text-blue-600 transition-all focus:outline-none">
+          🌐 <span>{{ langService.activeLang().toUpperCase() }}</span>
+        </button>
+
         <a routerLink="/" fragment="contact" class="px-5 py-2.5 text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-sm hover:shadow-md transition-all font-semibold">
-          Contact
+          {{ langService.translate('contact') }}
         </a>
       </div>
       
       <!-- Mobile Toggle -->
-      <div class="md:hidden">
+      <div class="md:hidden flex items-center gap-4">
+        <!-- Language selector icon next to menu toggle in mobile header -->
+        <button (click)="langService.toggleLanguage()" class="flex items-center gap-1 px-2.5 py-1 rounded-lg border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50 transition-all focus:outline-none">
+          🌐 {{ langService.activeLang().toUpperCase() }}
+        </button>
         <button (click)="toggleMenu()" class="text-slate-600 focus:outline-none hover:text-blue-600 transition-colors">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="menuOpen() ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16m-7 6h7'"></path>
@@ -47,18 +57,26 @@
     <!-- Mobile Navigation Menu -->
     @if (menuOpen()) {
       <div class="md:hidden mt-4 bg-white/95 backdrop-blur-md rounded-xl border border-slate-100 p-4 space-y-2 shadow-lg animate-in fade-in slide-in-from-top-4">
-        <a routerLink="/" (click)="closeMenus()" class="block py-2 text-slate-600 hover:text-blue-600 transition-colors font-medium border-b border-slate-50">Home</a>
+        <a routerLink="/" (click)="closeMenus()" class="block py-2 text-slate-600 hover:text-blue-600 transition-colors font-medium border-b border-slate-50">{{ langService.translate('home') }}</a>
         <div class="py-1">
-          <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider px-2 py-1">Services</p>
+          <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider px-2 py-1">{{ langService.translate('services') }}</p>
           @for(service of services; track service.id) {
             <a [routerLink]="['/service', service.id]" (click)="closeMenus()" class="block py-2 px-3 text-sm text-slate-700 hover:text-blue-600 hover:bg-slate-50 rounded-lg transition-colors font-medium">
-              {{ service.name }}
+              {{ langService.activeLang() === 'es' ? service.nameEs : service.name }}
             </a>
           }
         </div>
-        <a routerLink="/" fragment="testimonials" (click)="closeMenus()" class="block py-2 text-slate-600 hover:text-blue-600 transition-colors font-medium border-t border-slate-50">Testimonials</a>
+        <a routerLink="/" fragment="testimonials" (click)="closeMenus()" class="block py-2 text-slate-600 hover:text-blue-600 transition-colors font-medium border-t border-slate-50">{{ langService.translate('testimonials') }}</a>
+        
+        <div class="flex items-center justify-between border-t border-slate-100 pt-3 mt-3">
+          <span class="text-xs font-semibold text-slate-400 uppercase">Language / Idioma</span>
+          <button (click)="langService.toggleLanguage(); closeMenus()" class="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-bold text-slate-700 bg-slate-50 hover:bg-slate-100 transition-all focus:outline-none">
+            🌐 <span>{{ langService.activeLang().toUpperCase() }}</span>
+          </button>
+        </div>
+
         <a routerLink="/" fragment="contact" (click)="closeMenus()" class="block mt-4 text-center px-4 py-2.5 text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-sm transition-all font-semibold">
-          Contact
+          {{ langService.translate('contact') }}
         </a>
       </div>
     }

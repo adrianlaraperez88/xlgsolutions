@@ -4,10 +4,10 @@
 
   <div class="container mx-auto px-6 relative z-10">
     <div class="text-center max-w-3xl mx-auto mb-16">
-      <span class="text-xs font-semibold text-blue-400 uppercase tracking-widest bg-blue-950/60 px-3.5 py-1.5 rounded-full border border-blue-800/30">Connect</span>
-      <h2 class="text-3xl md:text-5xl font-bold font-display mt-4 tracking-tight">Let's Build Together</h2>
+      <span class="text-xs font-semibold text-blue-400 uppercase tracking-widest bg-blue-950/60 px-3.5 py-1.5 rounded-full border border-blue-800/30">{{ langService.translate('contactTagline') }}</span>
+      <h2 class="text-3xl md:text-5xl font-bold font-display mt-4 tracking-tight">{{ langService.translate('contactTitle') }}</h2>
       <p class="mt-4 text-base md:text-lg text-slate-400 leading-relaxed">
-        Ready to optimize your financial processes or select a health plan? Contact us for a free, zero-obligation advisory session.
+        {{ langService.translate('contactSubtitle') }}
       </p>
     </div>
 
@@ -16,59 +16,59 @@
       <div *ngIf="submissionState === 'success'" class="my-6 p-5 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-2xl flex items-start gap-3 animate-fade-in" role="alert">
         <span class="text-lg">✓</span>
         <div>
-          <strong class="font-bold">Thank you!</strong>
-          <p class="text-sm mt-0.5">Your inquiry was received. An advisor will follow up within 24 hours.</p>
+          <strong class="font-bold">{{ langService.translate('formSuccessTitle') }}</strong>
+          <p class="text-sm mt-0.5">{{ langService.translate('formSuccessDesc') }}</p>
         </div>
       </div>
       <div *ngIf="submissionState === 'error'" class="my-6 p-5 bg-rose-500/10 border border-rose-500/30 text-rose-400 rounded-2xl flex items-start gap-3 animate-fade-in" role="alert">
         <span class="text-lg">⚠️</span>
         <div>
-          <strong class="font-bold">Error!</strong>
-          <p class="text-sm mt-0.5">There was a problem sending your message. Please try again later.</p>
+          <strong class="font-bold">{{ langService.translate('formErrorTitle') }}</strong>
+          <p class="text-sm mt-0.5">{{ langService.translate('formErrorDesc') }}</p>
         </div>
       </div>
 
       <form *ngIf="submissionState !== 'success'" [formGroup]="contactForm" (ngSubmit)="submitForm()" class="bg-slate-800/50 backdrop-blur-md p-8 md:p-10 rounded-3xl border border-slate-800 shadow-2xl space-y-6">
         <!-- Full Name Field -->
         <div>
-          <label for="full-name" class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Full Name</label>
+          <label for="full-name" class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">{{ langService.translate('fullNameLabel') }}</label>
           <input type="text" formControlName="fullName" id="full-name" autocomplete="name"
                  [class.border-rose-500]="contactForm.get('fullName')?.invalid && contactForm.get('fullName')?.touched"
                  [class.focus:ring-rose-500]="contactForm.get('fullName')?.invalid && contactForm.get('fullName')?.touched"
                  class="block w-full py-3.5 px-4 bg-slate-900/60 border border-slate-700/50 rounded-xl placeholder-slate-500 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-all text-sm shadow-sm" placeholder="e.g. Jane Doe">
           <div *ngIf="contactForm.get('fullName')?.invalid && contactForm.get('fullName')?.touched" class="text-rose-400 text-xs mt-1.5 pl-1 flex items-center gap-1">
-            <span>●</span> Full name is required.
+            <span>●</span> {{ langService.translate('nameRequiredError') }}
           </div>
         </div>
 
         <!-- Email Field -->
         <div>
-          <label for="email" class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Email Address</label>
+          <label for="email" class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">{{ langService.translate('emailLabel') }}</label>
           <input id="email" formControlName="email" type="email" autocomplete="email"
                  [class.border-rose-500]="contactForm.get('email')?.invalid && contactForm.get('email')?.touched"
                  [class.focus:ring-rose-500]="contactForm.get('email')?.invalid && contactForm.get('email')?.touched"
                  class="block w-full py-3.5 px-4 bg-slate-900/60 border border-slate-700/50 rounded-xl placeholder-slate-500 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-all text-sm shadow-sm" placeholder="jane@example.com">
           <div *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched" class="text-rose-400 text-xs mt-1.5 pl-1 flex items-center gap-1">
-            <span>●</span> Please enter a valid email address.
+            <span>●</span> {{ langService.translate('emailRequiredError') }}
           </div>
         </div>
 
         <!-- Phone Field -->
         <div>
-          <label for="phone" class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Phone Number <span class="text-slate-600 font-normal">(Optional)</span></label>
+          <label for="phone" class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">{{ langService.translate('phoneLabel') }} <span class="text-slate-600 font-normal">{{ langService.translate('optionalLabel') }}</span></label>
           <input type="text" formControlName="phone" id="phone" autocomplete="tel"
                  class="block w-full py-3.5 px-4 bg-slate-900/60 border border-slate-700/50 rounded-xl placeholder-slate-500 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-all text-sm shadow-sm" placeholder="(305) 555-0199">
         </div>
 
         <!-- Message Field -->
         <div>
-          <label for="message" class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Your Inquiry</label>
+          <label for="message" class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">{{ langService.translate('inquiryLabel') }}</label>
           <textarea id="message" formControlName="message" rows="4"
                     [class.border-rose-500]="contactForm.get('message')?.invalid && contactForm.get('message')?.touched"
                     [class.focus:ring-rose-500]="contactForm.get('message')?.invalid && contactForm.get('message')?.touched"
-                    class="block w-full py-3.5 px-4 bg-slate-900/60 border border-slate-700/50 rounded-xl placeholder-slate-500 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-all text-sm shadow-sm resize-none" placeholder="Briefly describe what services you need assistance with..."></textarea>
+                    class="block w-full py-3.5 px-4 bg-slate-900/60 border border-slate-700/50 rounded-xl placeholder-slate-500 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-all text-sm shadow-sm resize-none" [placeholder]="langService.translate('inquiryPlaceholder')"></textarea>
           <div *ngIf="contactForm.get('message')?.invalid && contactForm.get('message')?.touched" class="text-rose-400 text-xs mt-1.5 pl-1 flex items-center gap-1">
-            <span>●</span> Inquiry message cannot be empty.
+            <span>●</span> {{ langService.translate('messageRequiredError') }}
           </div>
         </div>
 
@@ -81,9 +81,9 @@
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
-              Sending Inquiry...
+              {{ langService.translate('sendingBtn') }}
             </span>
-            <span *ngIf="submissionState !== 'submitting'">Send Message</span>
+            <span *ngIf="submissionState !== 'submitting'">{{ langService.translate('sendMessageBtn') }}</span>
           </button>
         </div>
       </form>
@@ -96,11 +96,11 @@
     <div class="flex flex-col md:flex-row justify-between items-center gap-6">
       <img src="assets/logo.svg" alt="XLG Solutions Logo" class="h-8 w-auto opacity-70 hover:opacity-100 transition-opacity">
       <div class="flex gap-8 text-sm text-slate-500 font-medium">
-        <a routerLink="/" class="hover:text-blue-500 transition-colors">Home</a>
-        <a href="#services" class="hover:text-blue-500 transition-colors">Services</a>
-        <a href="#testimonials" class="hover:text-blue-500 transition-colors">Testimonials</a>
+        <a routerLink="/" class="hover:text-blue-500 transition-colors">{{ langService.translate('home') }}</a>
+        <a routerLink="." fragment="services" class="hover:text-blue-500 transition-colors">{{ langService.translate('services') }}</a>
+        <a routerLink="." fragment="testimonials" class="hover:text-blue-500 transition-colors">{{ langService.translate('testimonials') }}</a>
       </div>
-      <p class="text-xs text-slate-600 font-medium">&copy; 2026 XLG Solutions. All rights reserved.</p>
+      <p class="text-xs text-slate-600 font-medium">&copy; 2026 XLG Solutions. {{ langService.translate('rightsReserved') }}</p>
     </div>
   </div>
 </footer>
