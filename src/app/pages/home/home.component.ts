@@ -32,12 +32,12 @@ export class HomeComponent {
 
       // Determine SEO texts based on language
       let title = 'XLG Solutions | Expert Business & Financial Solutions';
-      let description = 'Empower your business growth with expert financial solutions from XLG Solutions. We offer bookkeeping, tax preparation, health insurance, and small business support.';
+      let description = 'XLG Solutions provides small business bookkeeping, strategic tax planning, and expert health insurance advisory to support your business growth.';
       let keywords = 'bookkeeping, tax preparation, tax planning, health insurance, small business support, LLC formation, supplemental benefits, financial advisory, XLG Solutions';
 
       if (activeLang === 'es') {
         title = 'XLG Solutions | Soluciones Financieras y Empresariales Expertas';
-        description = 'Impulse el crecimiento de su empresa con las soluciones financieras expertas de XLG Solutions. Ofrecemos contabilidad, preparación de impuestos, seguros de salud y más.';
+        description = 'XLG Solutions ofrece contabilidad, planeación fiscal estratégica y asesoría en seguros de salud para impulsar el crecimiento de su empresa.';
         keywords = 'contabilidad, preparación de impuestos, seguros de salud, apoyo a pequeñas empresas, formación de LLC, asesoría financiera, XLG Solutions';
       }
 

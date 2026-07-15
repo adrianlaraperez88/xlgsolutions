@@ -29,6 +29,8 @@
         </div>
         
         <a routerLink="/" fragment="testimonials" class="text-slate-600 hover:text-blue-600 transition-colors py-2">{{ langService.translate('testimonials') }}</a>
+        <a routerLink="/tools" class="text-slate-600 hover:text-blue-600 transition-colors py-2">{{ langService.activeLang() === 'es' ? 'Herramientas' : 'Tax Tools' }}</a>
+        <a routerLink="/resources" class="text-slate-600 hover:text-blue-600 transition-colors py-2">{{ langService.activeLang() === 'es' ? 'Recursos' : 'Resources' }}</a>
         
         <!-- Language selector button -->
         <button (click)="langService.toggleLanguage()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50 hover:text-blue-600 transition-all focus:outline-none">
@@ -67,6 +69,8 @@
           }
         </div>
         <a routerLink="/" fragment="testimonials" (click)="closeMenus()" class="block py-2 text-slate-600 hover:text-blue-600 transition-colors font-medium border-t border-slate-50">{{ langService.translate('testimonials') }}</a>
+        <a routerLink="/tools" (click)="closeMenus()" class="block py-2 text-slate-600 hover:text-blue-600 transition-colors font-medium border-t border-slate-50">{{ langService.activeLang() === 'es' ? 'Herramientas' : 'Tax Tools' }}</a>
+        <a routerLink="/resources" (click)="closeMenus()" class="block py-2 text-slate-600 hover:text-blue-600 transition-colors font-medium border-t border-slate-50">{{ langService.activeLang() === 'es' ? 'Recursos' : 'Resources' }}</a>
         
         <div class="flex items-center justify-between border-t border-slate-100 pt-3 mt-3">
           <span class="text-xs font-semibold text-slate-400 uppercase">Language / Idioma</span>

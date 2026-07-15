@@ -92,6 +92,9 @@ export class LanguageService {
       serviceNotFoundTitle: 'Service Not Found',
       serviceNotFoundDesc: 'The service identifier requested could not be resolved in our database.',
       returnToHomeBtn: 'Return to Home',
+      credentialQuickBooks: 'QuickBooks Certified ProAdvisor',
+      credentialIRS: 'IRS Registered Tax Preparer',
+      credentialLicense: 'Licensed Health Broker (Florida)',
       
       // FAQ
       faqTagline: 'FAQ',
@@ -185,6 +188,9 @@ export class LanguageService {
       serviceNotFoundTitle: 'Servicio no Encontrado',
       serviceNotFoundDesc: 'El identificador de servicio solicitado no se pudo encontrar en nuestra base de datos.',
       returnToHomeBtn: 'Regresar al Inicio',
+      credentialQuickBooks: 'ProAdvisor Certificado de QuickBooks',
+      credentialIRS: 'Preparador Registrado del IRS (PTIN)',
+      credentialLicense: 'Corredor de Salud Licenciado (Florida)',
       
       // FAQ
       faqTagline: 'Preguntas Frecuentes',

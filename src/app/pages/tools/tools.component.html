@@ -1,0 +1,179 @@
+<section class="relative py-28 md:py-36 bg-slate-50 min-h-screen overflow-hidden">
+  <!-- Glowing background blurs -->
+  <div class="absolute top-0 right-0 w-[450px] h-[450px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none"></div>
+  <div class="absolute bottom-10 left-0 w-[350px] h-[350px] bg-indigo-500/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+  <div class="container mx-auto px-6 relative z-10">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <span class="text-xs font-semibold text-blue-600 uppercase tracking-widest bg-blue-50 px-3.5 py-1.5 rounded-full border border-blue-100/50">
+        {{ langService.activeLang() === 'es' ? 'Calculadoras Interactivas' : 'Interactive Estimators' }}
+      </span>
+      <h1 class="text-3xl md:text-5xl font-bold text-slate-900 font-display mt-4 tracking-tight">
+        {{ langService.activeLang() === 'es' ? 'Herramientas de Estimación Fiscal y Médica' : 'Financial & Health Tax Tools' }}
+      </h1>
+      <p class="mt-4 text-base md:text-lg text-slate-600 leading-relaxed">
+        {{ langService.activeLang() === 'es' ? 'Estime sus obligaciones fiscales de trabajo autónomo, explore posibles ahorros de Corporación S y calcule los subsidios de seguro médico del mercado de ACA.' : 'Estimate your self-employment tax liabilities, explore potential S-Corp tax savings, and calculate ACA Marketplace health insurance subsidies.' }}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start max-w-6xl mx-auto">
+      <!-- 1. Self-Employment Tax Calculator Card -->
+      <div class="bg-white rounded-3xl p-8 md:p-10 shadow-sm border border-slate-100/60 flex flex-col justify-between">
+        <div>
+          <span class="text-[10px] font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3 py-1 rounded-md">
+            {{ langService.activeLang() === 'es' ? 'Calculadora de Impuestos' : 'Tax Estimator' }}
+          </span>
+          <h2 class="text-2xl font-bold text-slate-900 font-display mt-4 mb-2">
+            {{ langService.activeLang() === 'es' ? 'Impuesto de Trabajo Autónomo' : 'Self-Employment Tax' }}
+          </h2>
+          <p class="text-sm text-slate-500 mb-8 leading-relaxed">
+            {{ langService.activeLang() === 'es' ? 'Consulte su obligación tributaria estimada del IRS (FICA) y vea si califica para la optimización de S-Corp.' : 'Calculate your estimated IRS FICA liability and discover how much an S-Corp election can save you.' }}
+          </p>
+
+          <!-- Input Slider & Number Box -->
+          <div class="mb-8">
+            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">
+              {{ langService.activeLang() === 'es' ? 'Ingreso Neto Anual ($)' : 'Net Annual Self-Employment Income ($)' }}
+            </label>
+            <div class="flex items-center gap-4">
+              <input type="range" min="10000" max="250000" step="5000" [value]="seIncome()" (input)="updateSeIncome($event)"
+                     class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-blue-600">
+              <input type="number" [value]="seIncome()" (input)="updateSeIncome($event)"
+                     class="w-28 p-2 text-center bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-blue-500 font-semibold text-slate-800 text-sm">
+            </div>
+          </div>
+
+          <!-- Calculation breakdown -->
+          <div class="space-y-4 pt-6 border-t border-slate-100 text-sm text-slate-600">
+            <div class="flex justify-between">
+              <span>{{ langService.activeLang() === 'es' ? 'Ganancias sujetas a impuestos (92.35%)' : 'Net Earnings Subject to Tax (92.35%)' }}</span>
+              <span class="font-semibold text-slate-900">{{ seEarnings() | currency }}</span>
+            </div>
+            <div class="flex justify-between">
+              <span>{{ langService.activeLang() === 'es' ? 'Impuesto de Seguro Social (12.4%)' : 'Social Security Tax (12.4%)' }}</span>
+              <span>{{ socialSecurityTax() | currency }}</span>
+            </div>
+            <div class="flex justify-between">
+              <span>{{ langService.activeLang() === 'es' ? 'Impuesto de Medicare (2.9%)' : 'Medicare Tax (2.9%)' }}</span>
+              <span>{{ medicareTax() | currency }}</span>
+            </div>
+            <div class="flex justify-between pt-4 border-t border-slate-100 font-bold text-base text-slate-900">
+              <span>{{ langService.activeLang() === 'es' ? 'Impuesto Total de Autónomo' : 'Total Self-Employment Tax' }}</span>
+              <span class="text-red-600">{{ totalSeTax() | currency }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- S-Corp Savings Card -->
+        <div class="mt-8 p-6 bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-100 rounded-2xl">
+          <h4 class="font-bold text-emerald-900 text-sm md:text-base flex items-center gap-2">
+            🚀 {{ langService.activeLang() === 'es' ? 'Potencial de Ahorro S-Corp' : 'S-Corp Savings Potential' }}
+          </h4>
+          <p class="mt-2 text-xs text-slate-600 leading-relaxed">
+            {{ langService.activeLang() === 'es' ? 'Al registrarse como S-Corp y pagarse un salario razonable del 60%, su impuesto estimado se reduce significativamente.' : 'By electing S-Corp status and running a 60% reasonable salary, your self-employment liability is reduced.' }}
+          </p>
+          <div class="mt-4 flex justify-between items-center pt-3 border-t border-emerald-200/50">
+            <span class="text-xs text-emerald-800 font-bold uppercase tracking-wider">{{ langService.activeLang() === 'es' ? 'Ahorro Fiscal Estimado' : 'Estimated Annual Savings' }}</span>
+            <span class="text-lg font-extrabold text-emerald-600">{{ sCorpSavings() | currency }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. ACA Subsidy Estimator Card -->
+      <div class="bg-white rounded-3xl p-8 md:p-10 shadow-sm border border-slate-100/60 flex flex-col justify-between">
+        <div>
+          <span class="text-[10px] font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-3 py-1 rounded-md">
+            {{ langService.activeLang() === 'es' ? 'Seguro de Salud' : 'Health Subsidy' }}
+          </span>
+          <h2 class="text-2xl font-bold text-slate-900 font-display mt-4 mb-2">
+            {{ langService.activeLang() === 'es' ? 'Subsidios de ACA Marketplace' : 'ACA Marketplace Subsidies' }}
+          </h2>
+          <p class="text-sm text-slate-500 mb-8 leading-relaxed">
+            {{ langService.activeLang() === 'es' ? 'Estime su subsidio mensual de Obamacare en base a los ingresos de su hogar y el número de dependientes.' : 'Estimate your monthly Obamacare credits based on household size and annual earnings.' }}
+          </p>
+
+          <!-- Input Household Size -->
+          <div class="mb-6">
+            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-3">
+              {{ langService.activeLang() === 'es' ? 'Tamaño del Hogar (Personas)' : 'Household Size (People)' }}
+            </label>
+            <div class="flex gap-2">
+              @for (size of [1,2,3,4,5]; track size) {
+                <button (click)="updateHouseholdSize(size)" 
+                        [class.bg-indigo-600]="householdSize() === size"
+                        [class.text-white]="householdSize() === size"
+                        [class.border-indigo-600]="householdSize() === size"
+                        [class.bg-slate-50]="householdSize() !== size"
+                        [class.text-slate-700]="householdSize() !== size"
+                        [class.border-slate-200]="householdSize() !== size"
+                        class="w-10 h-10 rounded-xl border font-bold text-sm flex items-center justify-center transition-all hover:bg-indigo-50 focus:outline-none">
+                  {{ size }}
+                </button>
+              }
+            </div>
+          </div>
+
+          <!-- Input Annual Income Slider -->
+          <div class="mb-8">
+            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">
+              {{ langService.activeLang() === 'es' ? 'Ingreso Familiar Anual ($)' : 'Annual Household Income ($)' }}
+            </label>
+            <div class="flex items-center gap-4">
+              <input type="range" min="10000" max="150000" step="2500" [value]="annualIncome()" (input)="updateIncome($event)"
+                     class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+              <input type="number" [value]="annualIncome()" (input)="updateIncome($event)"
+                     class="w-28 p-2 text-center bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500 font-semibold text-slate-800 text-sm">
+            </div>
+          </div>
+
+          <!-- Subsidy Estimate output -->
+          <div class="space-y-4 pt-6 border-t border-slate-100 text-sm text-slate-600">
+            <div class="flex justify-between">
+              <span>{{ langService.activeLang() === 'es' ? 'Límite de Pobreza Federal (FPL)' : 'Federal Poverty Level (FPL)' }}</span>
+              <span class="font-semibold text-slate-900">{{ fplForSize() | currency }}</span>
+            </div>
+            <div class="flex justify-between">
+              <span>{{ langService.activeLang() === 'es' ? 'Ratio de Ingreso / FPL' : 'Income to FPL Ratio' }}</span>
+              <span class="font-bold" [ngClass]="{'text-emerald-600': incomeFplRatio() <= 400, 'text-red-500': incomeFplRatio() > 400}">
+                {{ incomeFplRatio() | number:'1.0-0' }}%
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Result Subsidy Callout -->
+        <div class="mt-8 p-6 bg-gradient-to-br from-indigo-50 to-blue-50 border border-indigo-100 rounded-2xl">
+          <h4 class="font-bold text-indigo-900 text-sm md:text-base flex items-center gap-2">
+            🛡️ {{ langService.activeLang() === 'es' ? 'Créditos Estimados Obamacare' : 'Obamacare Subsidy Estimate' }}
+          </h4>
+          <p class="mt-2 text-xs text-slate-600 leading-relaxed">
+            @if (incomeFplRatio() < 100) {
+              {{ langService.activeLang() === 'es' ? 'Su ingreso está por debajo del 100% FPL. Puede calificar para Medicaid o recibir la máxima asistencia de prima.' : 'Your income is under 100% FPL. You may qualify for Medicaid or secure maximum premium support.' }}
+            } @else if (incomeFplRatio() <= 400) {
+              {{ langService.activeLang() === 'es' ? '¡Califica para créditos fiscales! Sus primas netas mensuales se reducirán significativamente.' : 'You qualify for premium tax credits! Your net monthly premium costs will be significantly reduced.' }}
+            } @else {
+              {{ langService.activeLang() === 'es' ? 'Su ingreso supera el 400% FPL. Aún puede calificar para subsidios reducidos bajo las reglas de cobertura extendida.' : 'Your income exceeds 400% FPL. You may still qualify for subsidized premiums under extended coverage rules.' }}
+            }
+          </p>
+          <div class="mt-4 flex justify-between items-center pt-3 border-t border-indigo-200/50">
+            <span class="text-xs text-indigo-800 font-bold uppercase tracking-wider">{{ langService.activeLang() === 'es' ? 'Crédito Mensual Estimado' : 'Estimated Monthly Credit' }}</span>
+            <span class="text-lg font-extrabold text-indigo-600">+ {{ estimatedSubsidy() | currency }}/mo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Final Call to Action Box -->
+    <div class="mt-16 text-center max-w-2xl mx-auto bg-slate-900 text-white rounded-3xl p-8 shadow-xl border border-slate-800">
+      <h3 class="text-xl font-bold font-display mb-3">
+        {{ langService.activeLang() === 'es' ? '¿Desea una Revisión Personalizada Exacta?' : 'Want an Exact, Personalized Review?' }}
+      </h3>
+      <p class="text-slate-400 text-sm mb-6 leading-relaxed">
+        {{ langService.activeLang() === 'es' ? 'Estas calculadoras brindan estimaciones de referencia. Nuestros consultores evalúan su situación exacta para estructurar sus deducciones y seguros al máximo.' : 'These calculators provide baseline estimates. Our consultants audit your financial situations to structure optimal deductions and maximize savings.' }}
+      </p>
+      <a routerLink="/" fragment="contact" class="inline-block px-8 py-3.5 text-slate-900 bg-white hover:bg-slate-100 rounded-xl font-semibold shadow transition-all duration-200 text-sm">
+        {{ langService.translate('freeConsultationBtn') }}
+      </a>
+    </div>
+  </div>
+</section>

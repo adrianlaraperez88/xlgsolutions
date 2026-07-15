@@ -4,3 +4,8 @@
 /service/health-insurance
 /service/supplemental-benefits
 /service/business-support
+/resources
+/resources/corporate-transparency-act-boi
+/resources/llc-vs-scorp-tax-savings
+/resources/selecting-health-insurance-network
+/tools
