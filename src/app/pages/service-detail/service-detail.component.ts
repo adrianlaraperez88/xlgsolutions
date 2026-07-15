@@ -1,9 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal, effect } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Service } from '../../models/service.model';
 import { ServiceService } from '../../services/service.service';
 import { CommonModule } from '@angular/common';
 import { LanguageService } from '../../services/language.service';
+import { SeoService } from '../../services/seo.service';
 
 @Component({
   selector: 'app-service-detail',
@@ -15,15 +16,76 @@ export class ServiceDetailComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private serviceService = inject(ServiceService);
   public langService = inject(LanguageService);
+  private seoService = inject(SeoService);
 
   service: Service | undefined;
+  private serviceIdSignal = signal<string | null>(null);
+
+  constructor() {
+    effect(() => {
+      const activeLang = this.langService.activeLang();
+      const serviceId = this.serviceIdSignal();
+      
+      // Update HTML lang tag
+      this.seoService.updateHtmlLang(activeLang);
+
+      if (serviceId) {
+        this.service = this.serviceService.getServiceById(serviceId);
+        
+        if (this.service) {
+          const serviceName = activeLang === 'es' ? this.service.nameEs : this.service.name;
+          const serviceDesc = activeLang === 'es' ? this.service.shortDescriptionEs : this.service.shortDescription;
+          
+          const title = `${serviceName} | XLG Solutions`;
+          const description = `${serviceDesc} ${
+            activeLang === 'es' 
+              ? 'Obtenga una consulta gratuita con nuestros asesores en Miami.' 
+              : 'Get a free session with our specialist advisors in Miami.'
+          }`;
+          const keywords = `${serviceName}, ${this.service.id.replace(/-/g, ', ')}, XLG Solutions, services`;
+
+          this.seoService.updateMeta({
+            title,
+            description,
+            keywords,
+            canonicalPath: `/service/${serviceId}`
+          });
+
+          // Inject structured JSON-LD data for the specific service
+          this.seoService.setJsonLd({
+            '@context': 'https://schema.org',
+            '@type': 'Service',
+            'name': serviceName,
+            'description': serviceDesc,
+            'provider': {
+              '@type': 'FinancialService',
+              'name': 'XLG Solutions',
+              'url': 'https://xlgsolutions.com/',
+              'telephone': '+1-305-555-0199',
+              'email': 'info@xlgsolutions.com'
+            },
+            'areaServed': {
+              '@type': 'AdministrativeArea',
+              'name': 'Florida'
+            },
+            'serviceType': serviceName,
+            'offers': {
+              '@type': 'Offer',
+              'price': '0',
+              'priceCurrency': 'USD',
+              'description': 'Free initial consultation'
+            }
+          });
+        }
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       const serviceId = params.get('id');
-      if (serviceId) {
-        this.service = this.serviceService.getServiceById(serviceId);
-      }
+      this.serviceIdSignal.set(serviceId);
     });
   }
 }
+
