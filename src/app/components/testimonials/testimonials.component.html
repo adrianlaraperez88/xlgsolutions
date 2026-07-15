@@ -72,6 +72,20 @@
         </div>
       </div>
     </div>
+
+    <!-- Client Review Prompt Card -->
+    <div class="mt-16 max-w-2xl mx-auto bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 p-6 md:p-8 rounded-3xl shadow-sm flex flex-col md:flex-row items-center gap-6 animate-fade-in">
+      <div class="h-12 w-12 rounded-full bg-blue-600 text-white flex items-center justify-center flex-shrink-0 text-xl font-bold shadow-md select-none">
+        ★
+      </div>
+      <div class="text-center md:text-left">
+        <h4 class="text-base font-bold text-slate-900 font-display">
+          {{ langService.translate('reviewPromptTitle') }}
+        </h4>
+        <p class="mt-2 text-sm text-slate-600 leading-relaxed" [innerHTML]="langService.translate('reviewPromptText')">
+        </p>
+      </div>
+    </div>
   </div>
 </section>
 

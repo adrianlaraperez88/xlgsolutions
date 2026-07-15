@@ -62,27 +62,67 @@ export class HomeComponent {
       const q4 = this.langService.translate('faqQ4');
       const a4 = this.langService.translate('faqA4');
 
-      // Inject structured JSON-LD data (both FinancialService and FAQPage)
+      // Inject structured JSON-LD data (Organization, LocalBusiness, and FAQPage)
       this.seoService.setJsonLd([
         {
           '@context': 'https://schema.org',
-          '@type': 'FinancialService',
+          '@type': 'Organization',
+          '@id': 'https://xlgsol.com/#organization',
           'name': 'XLG Solutions',
-          'image': 'https://xlgsolutions.com/assets/logo.svg',
-          '@id': 'https://xlgsolutions.com/#organization',
-          'url': 'https://xlgsolutions.com/',
+          'url': 'https://xlgsol.com/',
+          'logo': {
+            '@type': 'ImageObject',
+            'url': 'https://xlgsol.com/assets/logo.svg'
+          },
+          'contactPoint': {
+            '@type': 'ContactPoint',
+            'telephone': '+1-305-555-0199',
+            'contactType': 'customer service',
+            'email': 'info@xlgsol.com'
+          }
+        },
+        {
+          '@context': 'https://schema.org',
+          '@type': 'LocalBusiness',
+          '@id': 'https://xlgsol.com/#localbusiness',
+          'parentOrganization': {
+            '@id': 'https://xlgsol.com/#organization'
+          },
+          'name': 'XLG Solutions',
+          'image': 'https://xlgsol.com/assets/logo.svg',
+          'url': 'https://xlgsol.com/',
           'telephone': '+1-305-555-0199',
-          'email': 'info@xlgsolutions.com',
+          'email': 'info@xlgsol.com',
+          'priceRange': '$$',
           'address': {
             '@type': 'PostalAddress',
+            'streetAddress': '801 Brickell Ave',
             'addressLocality': 'Miami',
             'addressRegion': 'FL',
+            'postalCode': '33131',
             'addressCountry': 'US'
+          },
+          'geo': {
+            '@type': 'GeoCoordinates',
+            'latitude': 25.7656,
+            'longitude': -80.1908
+          },
+          'openingHoursSpecification': {
+            '@type': 'OpeningHoursSpecification',
+            'dayOfWeek': [
+              'Monday',
+              'Tuesday',
+              'Wednesday',
+              'Thursday',
+              'Friday'
+            ],
+            'opens': '09:00',
+            'closes': '18:00'
           },
           'description': description,
           'potentialAction': {
             '@type': 'ContactAction',
-            'target': 'https://xlgsolutions.com/#contact'
+            'target': 'https://xlgsol.com/#contact'
           }
         },
         {

@@ -26,7 +26,7 @@ export class SeoService {
    * Update page metadata including title, description, keywords, Open Graph, Twitter cards, and Canonical link.
    */
   updateMeta(config: SeoConfig): void {
-    const siteUrl = 'https://xlgsolutions.com';
+    const siteUrl = 'https://xlgsol.com';
     const cleanPath = config.canonicalPath.startsWith('/') ? config.canonicalPath : `/${config.canonicalPath}`;
     const fullUrl = `${siteUrl}${cleanPath}`;
 
@@ -107,7 +107,7 @@ export class SeoService {
     existing.forEach(el => el.remove());
 
     // Insert new alternates
-    const siteUrl = 'https://xlgsolutions.com';
+    const siteUrl = 'https://xlgsol.com';
     alternates.forEach(alt => {
       const cleanPath = alt.path.startsWith('/') ? alt.path : `/${alt.path}`;
       const link = this.document.createElement('link');

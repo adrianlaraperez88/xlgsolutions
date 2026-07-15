@@ -62,9 +62,9 @@ export class ServiceDetailComponent implements OnInit {
             'provider': {
               '@type': 'FinancialService',
               'name': 'XLG Solutions',
-              'url': 'https://xlgsolutions.com/',
+              'url': 'https://xlgsol.com/',
               'telephone': '+1-305-555-0199',
-              'email': 'info@xlgsolutions.com'
+              'email': 'info@xlgsol.com'
             },
             'areaServed': {
               '@type': 'AdministrativeArea',

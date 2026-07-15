@@ -15,7 +15,7 @@ export class ContactService {
     );
     
     // Open default mail client pre-filled with form details
-    window.location.href = `mailto:info@xlgsolutions.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:info@xlgsol.com?subject=${subject}&body=${body}`;
 
     // Return success state immediately after a brief delay to allow loading feedback
     return of({ success: true }).pipe(delay(1000));
