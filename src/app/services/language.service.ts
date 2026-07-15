@@ -89,7 +89,20 @@ export class LanguageService {
       scheduleSessionBtn: 'Schedule Free Session',
       serviceNotFoundTitle: 'Service Not Found',
       serviceNotFoundDesc: 'The service identifier requested could not be resolved in our database.',
-      returnToHomeBtn: 'Return to Home'
+      returnToHomeBtn: 'Return to Home',
+      
+      // FAQ
+      faqTagline: 'FAQ',
+      faqTitle: 'Frequently Asked Questions',
+      faqSubtitle: 'Find answers to common questions about our bookkeeping, tax, and insurance services.',
+      faqQ1: 'What bookkeeping services do you provide?',
+      faqA1: 'We handle transaction classification, bank reconciliations, accounts payable and receivable, and generate monthly financial reports (such as balance sheets and profit & loss statements) to keep your business records clean and compliant.',
+      faqQ2: 'How can strategic tax planning benefit my business?',
+      faqA2: 'Rather than just filing returns at the end of the year, strategic year-round tax planning helps identify potential deductions, tax credits, and financial structures that can legally minimize your state and federal tax liabilities.',
+      faqQ3: 'What is the difference between ACA marketplace plans and supplemental benefits?',
+      faqA3: 'ACA Marketplace plans (Obamacare) provide your primary health insurance coverage (doctor visits, prescriptions, hospital stays). Supplemental benefits (such as accident or critical illness coverage) provide direct cash payouts to shield your income and cover out-of-pocket gaps left by your primary health plan.',
+      faqQ4: 'Can you help me form a new business entity?',
+      faqA4: 'Yes, we provide support for forming LLCs and Corporations, setting up your corporate structure, managing state licensing, and integrating payroll systems to ensure complete regulatory compliance.'
     },
     es: {
       // Navigation
@@ -167,7 +180,20 @@ export class LanguageService {
       scheduleSessionBtn: 'Programar Sesión Gratuita',
       serviceNotFoundTitle: 'Servicio no Encontrado',
       serviceNotFoundDesc: 'El identificador de servicio solicitado no se pudo encontrar en nuestra base de datos.',
-      returnToHomeBtn: 'Regresar al Inicio'
+      returnToHomeBtn: 'Regresar al Inicio',
+      
+      // FAQ
+      faqTagline: 'Preguntas Frecuentes',
+      faqTitle: 'Preguntas Frecuentes',
+      faqSubtitle: 'Encuentre respuestas a las dudas más comunes sobre nuestros servicios de contabilidad, impuestos y seguros.',
+      faqQ1: '¿Qué servicios de contabilidad (bookkeeping) ofrecen?',
+      faqA1: 'Nos encargamos de la clasificación de transacciones, conciliación bancaria, cuentas por cobrar y pagar, y la preparación de informes financieros mensuales (balance general y pérdidas y ganancias) para mantener las finanzas de su negocio ordenadas.',
+      faqQ2: '¿Cómo puede beneficiar la planeación fiscal estratégica a mi empresa?',
+      faqA2: 'En lugar de solo declarar a fin de año, la planeación fiscal anual identifica deducciones, créditos fiscales y estructuras que minimizan legalmente sus obligaciones tributarias estatales y federales.',
+      faqQ3: '¿Cuál es la diferencia entre los planes del mercado ACA y los beneficios suplementarios?',
+      faqA3: 'Los planes de ACA (Obamacare) ofrecen su cobertura de salud primaria (médicos, recetas, hospitalización). Los beneficios suplementarios (como seguros de accidentes o enfermedades graves) brindan pagos directos en efectivo para cubrir brechas y proteger sus ingresos.',
+      faqQ4: '¿Pueden ayudarme a constituir una nueva entidad comercial?',
+      faqA4: 'Sí, le asesoramos en la creación de empresas LLC y Corporaciones, configuración de su estructura corporativa, obtención de licencias comerciales e integración de nómina en conformidad con las leyes.'
     }
   };
 

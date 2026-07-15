@@ -1,0 +1,51 @@
+<section id="faq" class="py-20 md:py-28 bg-slate-50 border-t border-slate-100 relative overflow-hidden">
+  <!-- Soft background graphics -->
+  <div class="absolute top-[20%] right-[-10%] w-[300px] h-[300px] bg-blue-500/5 rounded-full blur-[90px] pointer-events-none"></div>
+
+  <div class="container mx-auto px-6 relative z-10">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <span class="text-xs font-semibold text-blue-600 uppercase tracking-widest bg-blue-50 px-3.5 py-1.5 rounded-full border border-blue-100/50">
+        {{ langService.translate('faqTagline') }}
+      </span>
+      <h2 class="text-3xl md:text-5xl font-bold text-slate-900 font-display mt-4 tracking-tight">
+        {{ langService.translate('faqTitle') }}
+      </h2>
+      <p class="mt-4 text-base md:text-lg text-slate-500 leading-relaxed">
+        {{ langService.translate('faqSubtitle') }}
+      </p>
+    </div>
+
+    <div class="max-w-3xl mx-auto space-y-4">
+      @for (item of faqItems; track item.qKey; let i = $index) {
+        <div class="bg-white border border-slate-200/60 rounded-2xl shadow-sm overflow-hidden hover:border-blue-100/80 transition-colors">
+          <!-- Accordion Header -->
+          <button (click)="toggleItem(i)" 
+                  class="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none focus:ring-2 focus:ring-blue-500/20 rounded-2xl"
+                  [attr.aria-expanded]="openItemIndex() === i">
+            <span class="font-bold text-slate-900 text-base md:text-lg pr-4 transition-colors"
+                  [ngClass]="{'text-blue-600': openItemIndex() === i}">
+              {{ langService.translate(item.qKey) }}
+            </span>
+            <span class="w-6 h-6 rounded-full bg-slate-50 text-slate-500 flex items-center justify-center font-bold flex-shrink-0 transition-transform duration-300"
+                  [class.rotate-180]="openItemIndex() === i"
+                  [ngClass]="{'bg-blue-50 text-blue-600': openItemIndex() === i}">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </span>
+          </button>
+
+          <!-- Accordion Body -->
+          <div class="grid transition-[grid-template-rows] duration-300 ease-in-out px-6" 
+               [ngClass]="openItemIndex() === i ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'">
+            <div class="overflow-hidden">
+              <p class="pb-5 text-slate-600 text-sm md:text-base leading-relaxed border-t border-slate-100 pt-4">
+                {{ langService.translate(item.aKey) }}
+              </p>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

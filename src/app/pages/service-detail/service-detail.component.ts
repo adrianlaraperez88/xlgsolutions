@@ -5,6 +5,7 @@ import { ServiceService } from '../../services/service.service';
 import { CommonModule } from '@angular/common';
 import { LanguageService } from '../../services/language.service';
 import { SeoService } from '../../services/seo.service';
+import { ClipboardService } from '../../services/clipboard.service';
 
 @Component({
   selector: 'app-service-detail',
@@ -17,6 +18,7 @@ export class ServiceDetailComponent implements OnInit {
   private serviceService = inject(ServiceService);
   public langService = inject(LanguageService);
   private seoService = inject(SeoService);
+  public clipboardService = inject(ClipboardService);
 
   service: Service | undefined;
   private serviceIdSignal = signal<string | null>(null);

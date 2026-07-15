@@ -9,6 +9,7 @@ export interface SeoConfig {
   canonicalPath: string;
   ogImage?: string;
   type?: string;
+  alternates?: { lang: string; path: string }[];
 }
 
 @Injectable({
@@ -55,6 +56,9 @@ export class SeoService {
 
     // 5. Canonical Link
     this.updateCanonicalLink(fullUrl);
+
+    // 6. Alternate link tags (hreflang)
+    this.updateAlternateLinks(config.alternates || []);
   }
 
   /**
@@ -92,5 +96,25 @@ export class SeoService {
       this.document.head.appendChild(link);
     }
     link.setAttribute('href', url);
+  }
+
+  /**
+   * Dynamically manage alternate lang links in the document head.
+   */
+  private updateAlternateLinks(alternates: { lang: string; path: string }[]): void {
+    // Remove existing alternates to prevent duplicates
+    const existing = this.document.querySelectorAll("link[rel='alternate']");
+    existing.forEach(el => el.remove());
+
+    // Insert new alternates
+    const siteUrl = 'https://xlgsolutions.com';
+    alternates.forEach(alt => {
+      const cleanPath = alt.path.startsWith('/') ? alt.path : `/${alt.path}`;
+      const link = this.document.createElement('link');
+      link.setAttribute('rel', 'alternate');
+      link.setAttribute('hreflang', alt.lang);
+      link.setAttribute('href', `${siteUrl}${cleanPath}`);
+      this.document.head.appendChild(link);
+    });
   }
 }

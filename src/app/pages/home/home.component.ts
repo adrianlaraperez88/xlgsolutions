@@ -3,6 +3,7 @@ import { HeroComponent } from '../../components/hero/hero.component';
 import { AboutComponent } from '../../components/about/about.component';
 import { ServicesComponent } from '../../components/services/services.component';
 import { TestimonialsComponent } from '../../components/testimonials/testimonials.component';
+import { FaqComponent } from '../../components/faq/faq.component';
 import { SeoService } from '../../services/seo.service';
 import { LanguageService } from '../../services/language.service';
 
@@ -13,7 +14,8 @@ import { LanguageService } from '../../services/language.service';
     HeroComponent,
     AboutComponent,
     ServicesComponent,
-    TestimonialsComponent
+    TestimonialsComponent,
+    FaqComponent
   ],
   templateUrl: './home.component.html',
 })
@@ -43,31 +45,85 @@ export class HomeComponent {
         title,
         description,
         keywords,
-        canonicalPath: '/'
+        canonicalPath: '/',
+        alternates: [
+          { lang: 'en', path: '/' },
+          { lang: 'es', path: '/' }
+        ]
       });
 
-      // Inject structured JSON-LD data
-      this.seoService.setJsonLd({
-        '@context': 'https://schema.org',
-        '@type': 'FinancialService',
-        'name': 'XLG Solutions',
-        'image': 'https://xlgsolutions.com/assets/logo.svg',
-        '@id': 'https://xlgsolutions.com/#organization',
-        'url': 'https://xlgsolutions.com/',
-        'telephone': '+1-305-555-0199',
-        'email': 'info@xlgsolutions.com',
-        'address': {
-          '@type': 'PostalAddress',
-          'addressLocality': 'Miami',
-          'addressRegion': 'FL',
-          'addressCountry': 'US'
+      // Get translated FAQ contents for structured data
+      const q1 = this.langService.translate('faqQ1');
+      const a1 = this.langService.translate('faqA1');
+      const q2 = this.langService.translate('faqQ2');
+      const a2 = this.langService.translate('faqA2');
+      const q3 = this.langService.translate('faqQ3');
+      const a3 = this.langService.translate('faqA3');
+      const q4 = this.langService.translate('faqQ4');
+      const a4 = this.langService.translate('faqA4');
+
+      // Inject structured JSON-LD data (both FinancialService and FAQPage)
+      this.seoService.setJsonLd([
+        {
+          '@context': 'https://schema.org',
+          '@type': 'FinancialService',
+          'name': 'XLG Solutions',
+          'image': 'https://xlgsolutions.com/assets/logo.svg',
+          '@id': 'https://xlgsolutions.com/#organization',
+          'url': 'https://xlgsolutions.com/',
+          'telephone': '+1-305-555-0199',
+          'email': 'info@xlgsolutions.com',
+          'address': {
+            '@type': 'PostalAddress',
+            'addressLocality': 'Miami',
+            'addressRegion': 'FL',
+            'addressCountry': 'US'
+          },
+          'description': description,
+          'potentialAction': {
+            '@type': 'ContactAction',
+            'target': 'https://xlgsolutions.com/#contact'
+          }
         },
-        'description': description,
-        'potentialAction': {
-          '@type': 'ContactAction',
-          'target': 'https://xlgsolutions.com/#contact'
+        {
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          'mainEntity': [
+            {
+              '@type': 'Question',
+              'name': q1,
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': a1
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': q2,
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': a2
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': q3,
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': a3
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': q4,
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': a4
+              }
+            }
+          ]
         }
-      });
+      ]);
     });
   }
 }
